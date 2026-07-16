@@ -1,0 +1,14 @@
+<iframe id="rlLP"
+        src="https://deploy-flame-pi.vercel.app"
+        data-cookieyes="cookieyes-necessary"
+        class="no-lazyload" data-no-lazy="1" data-skip-lazy
+        title="עמוד הרשמה" scrolling="no"
+        allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+        style="width:100%;border:0;display:block;height:2800px;min-height:100vh"></iframe>
+<script data-no-optimize="1" data-cfasync="false">
+window.addEventListener('message', function(e){
+  if (!e.data || !e.data.rlLP) return;
+  var h = parseInt(e.data.height, 10), f = document.getElementById('rlLP');
+  if (f && h && h > 800) f.style.height = h + 'px';
+});
+</script>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Particle Leaf</title>
+<style>
+  html,body{margin:0;height:100%}
+  /* light, airy background like the reference */
+  .leaf-stage{
+    position:relative;
+    width:100%;
+    height:100vh;
+    background:radial-gradient(120% 120% at 50% 40%, #eef4f6 0%, #dfe9ec 55%, #cddadd 100%);
+    overflow:hidden;
+  }
+  .leaf-stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+</style>
+</head>
+<body>
+
+<!-- ===== PARTICLE LEAF — self-contained element ===== -->
+<div class="leaf-stage">
+  <canvas id="leafCanvas"></canvas>
+</div>
+
+<script>
+(function(){
+  var canvas = document.getElementById('leafCanvas');
+  var host = canvas.parentNode;
+  var ctx = canvas.getContext('2d');
+  var reduce = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  var W=0,H=0,dpr=1,dots=[];
+  var mx=-9999,my=-9999,mActive=0;
+  var MR=150;                 // mouse influence radius (css px)
+  var REPEL=2.0;              // flee strength (higher = run further)
+  var SPRING=0.05;           // pull back to origin (higher = snappier return)
+  var DAMP=0.86;             // velocity damping (higher = more glide)
+  var ANGLE=-0.14;            // leaf tilt (rad)
+
+  function rnd(a,b){return a+Math.random()*(b-a);}
+  function clamp(v,a,b){return v<a?a:v>b?b:v;}
+
+  // half-width profile of the leaf along its spine (u in 0..1), pointed both ends
+  function halfW(u,maxH){ return maxH*Math.pow(Math.sin(Math.PI*u),0.78); }
+
+  function push(lx,ly, cx,cy, maxH, inten, size){
+    // rotate leaf-local (lx,ly) into world, store
+    var ca=Math.cos(ANGLE), sa=Math.sin(ANGLE);
+    var x = cx + lx*ca - ly*sa;
+    var y = cy + lx*sa + ly*ca;
+    dots.push({x:x,y:y,bx:x,by:y,vx:0,vy:0,inten:inten,size:size,ph:(x*0.012+y*0.010)});
+  }
+
+  function build(){
+    var r=host.getBoundingClientRect();
+    W=r.width; H=r.height;
+    dpr=Math.min(window.devicePixelRatio||1,2);
+    canvas.width=Math.round(W*dpr); canvas.height=Math.round(H*dpr);
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+
+    dots=[];
+    var cx=W*0.5, cy=H*0.5;
+    var L = Math.min(W*0.66, H*1.5);     // spine length
+    var maxH = Math.min(H*0.26, L*0.22); // max half-width
+    var half = L/2;
+
+    // ---- midrib (central spine) ----
+    var midSteps = Math.round(L/7);
+    for (var i=0;i<=midSteps;i++){
+      var u=i/midSteps;
+      var lx = -half + u*L;
+      push(lx, 0, cx,cy,maxH, 1.0, rnd(1.0,1.6));
+    }
+
+    // ---- outline (both margins) ----
+    var outSteps=Math.round(L/6);
+    for (var j=0;j<=outSteps;j++){
+      var u=j/outSteps;
+      var w=halfW(u,maxH);
+      var lx=-half+u*L;
+      // jitter so it reads as dotted, not a solid stroke
+      push(lx, w+rnd(-1.5,1.5),  cx,cy,maxH, 0.95, rnd(0.9,1.5));
+      push(lx, -(w+rnd(-1.5,1.5)),cx,cy,maxH, 0.95, rnd(0.9,1.5));
+    }
+
+    // ---- lateral veins (pairs branching toward the tip) ----
+    var veinUs=[0.14,0.24,0.34,0.44,0.54,0.64,0.74,0.84];
+    for (var k=0;k<veinUs.length;k++){
+      var u=veinUs[k];
+      var w=halfW(u,maxH);
+      var sx=-half+u*L;                 // start on midrib
+      for (var side=-1; side<=1; side+=2){
+        var ex = sx + w*0.55;           // end shifted toward tip
+        var ey = side*w*0.92;           // end near the margin
+        var pcx = sx + w*0.18;          // control point
+        var pcy = side*w*0.40;
+        var vSteps=Math.max(6,Math.round(w/7));
+        for (var s=0;s<=vSteps;s++){
+          var tt=s/vSteps;
+          var omt=1-tt;
+          var bx=omt*omt*sx + 2*omt*tt*pcx + tt*tt*ex;
+          var by=omt*omt*0  + 2*omt*tt*pcy + tt*tt*ey;
+          push(bx+rnd(-1,1), by+rnd(-1,1), cx,cy,maxH, 0.85, rnd(0.8,1.3));
+        }
+      }
+    }
+
+    // ---- reticulation / interior fill (sparse) ----
+    var fill=Math.round(L*maxH/55);
+    for (var f=0; f<fill; f++){
+      var u=rnd(0.05,0.95);
+      var w=halfW(u,maxH);
+      var lx=-half+u*L;
+      var ly=rnd(-w*0.92, w*0.92);
+      push(lx,ly, cx,cy,maxH, rnd(0.30,0.6), rnd(0.6,1.1));
+    }
+
+    // ---- loose particles drifting off the edges ----
+    var loose=Math.round(L*0.5);
+    for (var p=0;p<loose;p++){
+      var u=rnd(-0.04,1.04);
+      var w=halfW(clamp(u,0,1),maxH);
+      var lx=-half+u*L;
+      var ly=(Math.random()<0.5?-1:1)*(w + rnd(2,maxH*0.7));
+      push(lx,ly, cx,cy,maxH, rnd(0.10,0.4), rnd(0.7,1.4));
+    }
+  }
+
+  function frame(now){
+    var t=now*0.001;
+    ctx.clearRect(0,0,W,H);
+    ctx.globalCompositeOperation='lighter';
+    for (var i=0;i<dots.length;i++){
+      var d=dots[i];
+      var sway = reduce?0:Math.sin(d.ph + t*1.3)*1.6;
+      // spring back toward resting position (+ breathing sway)
+      var ax=(d.bx - d.x)*SPRING;
+      var ay=(d.by + sway - d.y)*SPRING;
+      // reverse magnet: flee from cursor, smooth falloff
+      if (mActive){
+        var dx=d.x-mx, dy=d.y-my, dist=Math.sqrt(dx*dx+dy*dy);
+        if (dist<MR){
+          var fr=(1-dist/MR); fr*=fr;          // soft, strongest near cursor
+          var inv=dist>0.001?1/dist:0;
+          ax += dx*inv*fr*REPEL;
+          ay += dy*inv*fr*REPEL;
+        }
+      }
+      d.vx=(d.vx+ax)*DAMP; d.vy=(d.vy+ay)*DAMP;
+      d.x+=d.vx; d.y+=d.vy;
+      var px=d.x, py=d.y;
+      var a=d.inten;
+      // teal palette, brighter cores for veins/outline
+      var R=Math.round(120-40*a), G=Math.round(200+20*a), B=Math.round(205+18*a);
+      // soft glow
+      ctx.fillStyle='rgba('+R+','+G+','+B+','+(a*0.16).toFixed(3)+')';
+      ctx.beginPath(); ctx.arc(px,py,d.size*3.0,0,6.283); ctx.fill();
+      // core
+      ctx.fillStyle='rgba('+R+','+G+','+B+','+(0.25+a*0.6).toFixed(3)+')';
+      ctx.beginPath(); ctx.arc(px,py,d.size,0,6.283); ctx.fill();
+    }
+    requestAnimationFrame(frame);
+  }
+
+  host.addEventListener('mousemove',function(e){
+    var r=host.getBoundingClientRect();
+    mx=e.clientX-r.left; my=e.clientY-r.top; mActive=1;
+  });
+  host.addEventListener('mouseleave',function(){mActive=0;mx=my=-9999;});
+  // touch support
+  host.addEventListener('touchmove',function(e){
+    var r=host.getBoundingClientRect(), tch=e.touches[0];
+    mx=tch.clientX-r.left; my=tch.clientY-r.top; mActive=1;
+  },{passive:true});
+
+  var rt;
+  window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(build,150);});
+  build();
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

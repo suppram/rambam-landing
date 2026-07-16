@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>יום פתוח | הכשרת מטפלים ברפואה תזונתית - המרכז לרפואת הרמב"ם</title>
+<meta name="description" content="מפגש חי אונליין ללא עלות עם ד&quot;ר גיל יוסף שחר (M.D) - הצצה ללימודי רפואה תזונתית. יום שלישי 16.6.2026 בשעה 21:00.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blue:#00ADEE;
+    --dark:#065572;
+    --green:#3CB704;
+    --accent:#25C48F;
+    --bg:#F2F7F9;
+    --lightblue:#C4E3F0;
+    --white:#fff;
+    --text:#1c3a47;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Heebo',Arial,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  img{max-width:100%;display:block}
+
+  /* ---------- animations ---------- */
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  @keyframes pulseBtn{
+    0%,100%{box-shadow:0 6px 22px rgba(60,183,4,.35)}
+    50%{box-shadow:0 6px 30px rgba(60,183,4,.6)}
+  }
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .anim-1{animation:fadeUp .7s ease .05s both}
+  .anim-2{animation:fadeUp .7s ease .2s both}
+  .anim-3{animation:fadeUp .7s ease .35s both}
+  .anim-4{animation:fadeUp .7s ease .5s both}
+
+  /* ---------- hero ---------- */
+  .hero{
+    min-height:100vh;
+    min-height:100dvh;
+    background:linear-gradient(135deg,var(--dark) 0%,#0a6f93 55%,var(--blue) 100%);
+    position:relative;
+    display:flex;
+    flex-direction:column;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;inset:0;
+    background:
+      radial-gradient(ellipse at 15% 85%,rgba(37,196,143,.18),transparent 50%),
+      radial-gradient(ellipse at 85% 10%,rgba(196,227,240,.14),transparent 45%);
+    pointer-events:none;
+  }
+  .hero-top{
+    display:flex;justify-content:flex-start;align-items:center;
+    padding:14px 28px 0;
+    position:relative;z-index:2;
+  }
+  .logo-wrap{
+    background:var(--white);
+    border-radius:12px;
+    padding:6px 14px;
+    box-shadow:0 4px 14px rgba(0,0,0,.18);
+  }
+  .logo-wrap img{height:52px;width:auto}
+
+  .hero-grid{
+    flex:1;
+    display:grid;
+    grid-template-columns:1.15fr 1fr; /* RTL: first col = right = content, second = left = form */
+    gap:40px;
+    align-items:center;
+    max-width:1240px;
+    width:100%;
+    margin:0 auto;
+    padding:18px 28px 34px;
+    position:relative;z-index:2;
+  }
+
+  .hero-content{color:var(--white)}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    background:rgba(37,196,143,.18);
+    border:1px solid rgba(37,196,143,.55);
+    color:#c8f5e6;
+    font-weight:600;font-size:.95rem;
+    padding:6px 16px;border-radius:50px;
+    margin-bottom:18px;
+  }
+  .free-badge{
+    background:var(--accent);
+    color:var(--white);
+    font-weight:800;font-size:.85rem;
+    padding:3px 12px;border-radius:50px;
+    letter-spacing:.02em;
+  }
+  h1{
+    font-size:clamp(1.9rem,3.4vw,3rem);
+    font-weight:900;
+    line-height:1.2;
+    margin-bottom:14px;
+  }
+  h1 .hl{color:#9fe6ff}
+  .sub{
+    font-size:clamp(1.02rem,1.4vw,1.2rem);
+    font-weight:400;
+    color:#dcf1fa;
+    max-width:560px;
+    margin-bottom:22px;
+  }
+  .date-badge{
+    display:inline-flex;align-items:center;gap:10px;
+    flex-wrap:wrap;
+    background:var(--white);
+    color:var(--dark);
+    font-weight:700;
+    font-size:clamp(.95rem,1.3vw,1.1rem);
+    padding:12px 22px;
+    border-radius:14px;
+    box-shadow:0 8px 24px rgba(0,0,0,.22);
+    margin-bottom:24px;
+  }
+  .date-badge .sep{color:var(--blue);font-weight:800}
+  .hero-bullets{list-style:none;display:grid;gap:10px;max-width:540px}
+  .hero-bullets li{
+    display:flex;align-items:flex-start;gap:10px;
+    font-size:1.02rem;color:#eef9ff;font-weight:500;
+  }
+  .check{
+    flex:0 0 22px;height:22px;width:22px;margin-top:3px;
+    border-radius:50%;
+    background:var(--accent);
+    color:var(--white);
+    display:inline-flex;align-items:center;justify-content:center;
+    font-size:.8rem;font-weight:900;
+  }
+  .urgency{
+    margin-top:20px;
+    display:inline-flex;align-items:center;gap:8px;
+    color:#ffe1a8;font-weight:700;font-size:1rem;
+  }
+
+  /* ---------- form card ---------- */
+  .form-card{
+    background:var(--white);
+    border-radius:20px;
+    padding:26px 26px 22px;
+    box-shadow:0 22px 60px rgba(3,42,58,.4);
+    max-width:440px;
+    width:100%;
+    justify-self:start; /* left column in RTL grid: start = right side of that column area */
+  }
+  .form-card h2{
+    color:var(--dark);
+    font-size:1.45rem;font-weight:800;
+    text-align:center;
+    margin-bottom:4px;
+  }
+  .form-card .form-sub{
+    text-align:center;color:#5b7c8a;font-size:.92rem;margin-bottom:16px;
+  }
+  .field{margin-bottom:12px}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  label.f-label{
+    display:block;font-size:.85rem;font-weight:600;color:var(--dark);margin-bottom:4px;
+  }
+  .req{color:#e0445a}
+  input[type=text],input[type=tel],input[type=email]{
+    width:100%;
+    font-family:'Heebo',sans-serif;
+    font-size:1rem;
+    padding:11px 14px;
+    border:1.5px solid var(--lightblue);
+    border-radius:10px;
+    background:var(--bg);
+    color:var(--text);
+    transition:border-color .2s,box-shadow .2s,background .2s;
+  }
+  input:focus{
+    outline:none;
+    border-color:var(--blue);
+    background:var(--white);
+    box-shadow:0 0 0 3px rgba(0,173,238,.18);
+  }
+  .consent{
+    display:flex;align-items:flex-start;gap:9px;
+    background:var(--bg);
+    border:1px solid var(--lightblue);
+    border-radius:10px;
+    padding:10px 12px;
+    margin:14px 0;
+    cursor:pointer;
+  }
+  .consent input{margin-top:4px;width:16px;height:16px;accent-color:var(--green);flex:0 0 16px;cursor:pointer}
+  .consent span{font-size:.74rem;line-height:1.5;color:#4a6b79}
+  .submit-btn{
+    width:100%;
+    font-family:'Heebo',sans-serif;
+    font-size:1.25rem;font-weight:800;
+    color:var(--white);
+    background:linear-gradient(135deg,var(--green) 0%,var(--accent) 100%);
+    border:none;border-radius:12px;
+    padding:15px 10px;
+    cursor:pointer;
+    animation:pulseBtn 2.4s ease-in-out infinite;
+    transition:transform .18s ease,filter .18s ease;
+    display:flex;align-items:center;justify-content:center;gap:10px;
+  }
+  .submit-btn:hover{transform:translateY(-2px) scale(1.015);filter:brightness(1.06)}
+  .submit-btn:active{transform:translateY(0) scale(.99)}
+  .submit-btn:disabled{
+    opacity:.75;cursor:wait;animation:none;transform:none;
+  }
+  .spinner{
+    width:20px;height:20px;
+    border:3px solid rgba(255,255,255,.35);
+    border-top-color:var(--white);
+    border-radius:50%;
+    animation:spin .7s linear infinite;
+    display:none;
+  }
+  .sending .spinner{display:inline-block}
+  .trust{
+    text-align:center;font-size:.82rem;color:#5b7c8a;margin-top:10px;
+  }
+  .form-error{
+    display:none;
+    background:#fdecef;color:#b3263d;
+    border:1px solid #f3b9c3;
+    border-radius:10px;
+    padding:10px 14px;
+    font-size:.9rem;font-weight:600;
+    text-align:center;
+    margin-top:12px;
+  }
+  .form-success{
+    display:none;
+    text-align:center;
+    padding:34px 10px;
+    animation:fadeUp .5s ease both;
+  }
+  .form-success .big-check{
+    width:64px;height:64px;margin:0 auto 16px;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--green),var(--accent));
+    color:var(--white);
+    display:flex;align-items:center;justify-content:center;
+    font-size:2rem;font-weight:900;
+  }
+  .form-success h3{color:var(--dark);font-size:1.4rem;font-weight:800;margin-bottom:8px}
+  .form-success p{color:#4a6b79;font-size:1rem}
+
+  /* ---------- sections ---------- */
+  section{padding:64px 24px}
+  .container{max-width:1100px;margin:0 auto}
+  .section-title{
+    text-align:center;
+    color:var(--dark);
+    font-size:clamp(1.6rem,2.6vw,2.2rem);
+    font-weight:900;
+    margin-bottom:8px;
+  }
+  .section-sub{text-align:center;color:#4a6b79;font-size:1.05rem;max-width:640px;margin:0 auto 38px}
+  .title-line{
+    width:64px;height:4px;border-radius:4px;
+    background:linear-gradient(90deg,var(--blue),var(--accent));
+    margin:14px auto 0;
+  }
+
+  /* benefits */
+  .benefits{background:var(--white)}
+  .benefit-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:20px;
+  }
+  .benefit-card{
+    background:var(--bg);
+    border:1px solid var(--lightblue);
+    border-radius:16px;
+    padding:24px 20px;
+    transition:transform .25s ease,box-shadow .25s ease;
+  }
+  .benefit-card:hover{transform:translateY(-6px);box-shadow:0 14px 30px rgba(6,85,114,.12)}
+  .benefit-icon{
+    width:46px;height:46px;border-radius:12px;
+    background:linear-gradient(135deg,var(--blue),var(--dark));
+    color:var(--white);
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.3rem;
+    margin-bottom:14px;
+  }
+  .benefit-card h3{color:var(--dark);font-size:1.08rem;font-weight:700;margin-bottom:6px}
+  .benefit-card p{font-size:.93rem;color:#4a6b79}
+
+  /* about */
+  .about{background:var(--bg)}
+  .about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:44px;
+    align-items:center;
+  }
+  .about-img{
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 18px 44px rgba(6,85,114,.22);
+    border:5px solid var(--white);
+  }
+  .about-text h2{
+    color:var(--dark);font-size:clamp(1.5rem,2.4vw,2rem);font-weight:900;margin-bottom:6px;
+  }
+  .about-text .role{color:var(--blue);font-weight:700;margin-bottom:16px;font-size:1.05rem}
+  .about-text p{margin-bottom:14px;color:#3a5a68;font-size:1.02rem}
+  .about-text strong{color:var(--dark)}
+
+  /* testimonials */
+  .testimonials{background:var(--white)}
+  .testi-strip{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:16px;
+  }
+  .testi-strip a{
+    display:block;
+    border-radius:14px;
+    overflow:hidden;
+    border:1px solid var(--lightblue);
+    box-shadow:0 8px 22px rgba(6,85,114,.1);
+    transition:transform .25s ease,box-shadow .25s ease;
+  }
+  .testi-strip a:hover{transform:translateY(-5px);box-shadow:0 16px 34px rgba(6,85,114,.18)}
+  .testi-strip img{width:100%;height:100%;object-fit:cover}
+
+  /* final cta */
+  .final-cta{
+    background:linear-gradient(135deg,var(--dark),var(--blue));
+    text-align:center;
+    color:var(--white);
+    padding:70px 24px 86px;
+  }
+  .final-cta h2{font-size:clamp(1.6rem,2.8vw,2.3rem);font-weight:900;margin-bottom:12px}
+  .final-cta p{font-size:1.1rem;color:#dcf1fa;margin-bottom:28px}
+  .cta-btn{
+    display:inline-block;
+    font-family:'Heebo',sans-serif;
+    font-size:1.3rem;font-weight:800;
+    color:var(--white);
+    background:linear-gradient(135deg,var(--green),var(--accent));
+    text-decoration:none;
+    padding:17px 56px;
+    border-radius:14px;
+    box-shadow:0 10px 28px rgba(0,0,0,.3);
+    animation:pulseBtn 2.4s ease-in-out infinite;
+    transition:transform .18s ease;
+  }
+  .cta-btn:hover{transform:translateY(-3px) scale(1.02)}
+  .final-urgency{margin-top:16px;color:#ffe1a8;font-weight:700}
+
+  footer{
+    background:#04394d;
+    color:#9cc3d4;
+    text-align:center;
+    font-size:.85rem;
+    padding:22px 16px 96px;
+  }
+
+  /* sticky mobile cta */
+  .sticky-cta{
+    display:none;
+    position:fixed;
+    bottom:0;right:0;left:0;
+    z-index:50;
+    padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+    background:rgba(255,255,255,.96);
+    backdrop-filter:blur(8px);
+    box-shadow:0 -6px 24px rgba(6,85,114,.2);
+  }
+  .sticky-cta a{
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    font-weight:800;font-size:1.1rem;
+    color:var(--white);
+    background:linear-gradient(135deg,var(--green),var(--accent));
+    text-decoration:none;
+    padding:13px;
+    border-radius:12px;
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:1024px){
+    .hero{min-height:0}
+    .hero-grid{
+      grid-template-columns:1fr;
+      gap:22px;
+      padding:14px 18px 36px;
+      max-width:560px;
+    }
+    .hero-top{padding:14px 18px 0;justify-content:center}
+    .logo-wrap img{height:42px}
+    .hero-content{text-align:center}
+    h1{font-size:clamp(1.6rem,6vw,2.1rem)}
+    .sub{margin-left:auto;margin-right:auto;font-size:1rem;margin-bottom:16px}
+    .date-badge{margin-bottom:0;font-size:.92rem;padding:10px 16px;gap:7px}
+    .hero-bullets,.urgency-desktop{display:none}
+    .form-card{justify-self:center;max-width:560px}
+    .urgency-mobile{
+      display:flex;justify-content:center;
+      color:#ffe1a8;font-weight:700;font-size:.95rem;
+      margin-top:12px;
+    }
+    .about-grid{grid-template-columns:1fr;gap:28px}
+    .about-img{max-width:480px;margin:0 auto}
+    .sticky-cta{display:block}
+    section{padding:48px 18px}
+  }
+  @media (min-width:1025px){
+    .urgency-mobile{display:none}
+    body{padding-bottom:0}
+    footer{padding-bottom:22px}
+  }
+  @media (max-width:480px){
+    .field-row{grid-template-columns:1fr}
+    .form-card{padding:20px 18px 18px}
+    .eyebrow{font-size:.85rem}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== HERO ===================== -->
+<header class="hero" id="top">
+  <div class="hero-top">
+    <div class="logo-wrap anim-1">
+      <img src="https://rambam-medicine.org.il/wp-content/uploads/2021/02/%D7%9C%D7%95%D7%92%D7%95-%D7%9C%D7%90%D7%AA%D7%A8-%D7%9E%D7%AA%D7%95%D7%A7%D7%9F-%D7%97%D7%93%D7%A9.png" alt="המרכז לרפואת הרמב&quot;ם - לוגו" width="180" height="52" style="height:52px;width:auto">
+    </div>
+  </div>
+
+  <div class="hero-grid">
+    <!-- content column (right in RTL) -->
+    <div class="hero-content">
+      <div class="eyebrow anim-1">
+        <span class="free-badge">ללא עלות</span>
+        מפגש חי אונליין &middot; יום פתוח
+      </div>
+      <h1 class="anim-2">לימודי רפואה תזונתית<br><span class="hl">הכשרת מטפלים שמרפאים באמת</span></h1>
+      <p class="sub anim-2">הצטרפו למפגש היכרות חי עם ד"ר גיל יוסף שחר (M.D), מייסד המרכז לרפואת הרמב"ם, וגלו איך הופכים תשוקה לבריאות ולתזונה למקצוע טיפולי מבוקש – המבוסס על מדע, ניסיון קליני וחוכמת הרמב"ם.</p>
+      <div class="date-badge anim-3">
+        <span>🗓</span>
+        <span>יום שלישי</span><span class="sep">|</span>
+        <span>16.6.2026</span><span class="sep">|</span>
+        <span>21:00</span><span class="sep">|</span>
+        <span>שידור חי בזום</span>
+      </div>
+      <ul class="hero-bullets anim-3">
+        <li><span class="check">✓</span>איך מזון נכון מרפא מחלות כרוניות – הגישה והמנגנונים</li>
+        <li><span class="check">✓</span>הצצה מלאה לתוכנית ההכשרה: תכנים, מבנה ושיטת הלימוד</li>
+        <li><span class="check">✓</span>מסלול הקריירה כמטפל ברפואה תזונתית – ממי לומדים ואיך מתפרנסים</li>
+        <li><span class="check">✓</span>סיפורי הצלחה אמיתיים של בוגרי התוכנית</li>
+        <li><span class="check">✓</span>מענה לשאלות שלכם בשידור חי</li>
+      </ul>
+      <div class="urgency urgency-desktop anim-4">⏳ מספר המקומות מוגבל – ההרשמה מראש בלבד</div>
+    </div>
+
+    <!-- form column (left in RTL) -->
+    <div class="form-card anim-3" id="register">
+      <div id="formBox">
+        <h2>שריינו מקום במפגש החי</h2>
+        <p class="form-sub">ההשתתפות ללא עלות &middot; קישור לזום יישלח למייל</p>
+        <form id="leadForm" novalidate>
+          <div class="field-row">
+            <div class="field">
+              <label class="f-label" for="first_name">שם פרטי <span class="req">*</span></label>
+              <input type="text" id="first_name" name="first_name" autocomplete="given-name" required placeholder="שם פרטי">
+            </div>
+            <div class="field">
+              <label class="f-label" for="last_name">שם משפחה <span class="req">*</span></label>
+              <input type="text" id="last_name" name="last_name" autocomplete="family-name" required placeholder="שם משפחה">
+            </div>
+          </div>
+          <div class="field">
+            <label class="f-label" for="phone">טלפון <span class="req">*</span></label>
+            <input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel" required pattern="[0-9()#&amp;+*-=.]+" placeholder="050-0000000">
+          </div>
+          <div class="field">
+            <label class="f-label" for="email">אימייל <span class="req">*</span></label>
+            <input type="email" id="email" name="email" autocomplete="email" inputmode="email" required placeholder="name@example.com">
+          </div>
+          <label class="consent">
+            <input type="checkbox" id="acceptance" name="acceptance" required>
+            <span>אני מאשר/ת את תנאי השימוש ומדיניות הפרטיות, ומסכים/ה לקבלת פניות שיווקיות ודיוור מד"ר גיל יוסף שחר (M.D) המרכז לרפואת הרמב"ם בדוא"ל, SMS, וואטסאפ ואמצעי תקשורת נוספים.</span>
+          </label>
+          <button type="submit" class="submit-btn" id="submitBtn">
+            <span class="spinner" aria-hidden="true"></span>
+            <span class="btn-text">אשמח להשתתף במפגש</span>
+          </button>
+          <p class="trust">🔒 הפרטים שלך שמורים, ללא ספאם</p>
+          <div class="form-error" id="formError" role="alert">אירעה שגיאה, נסו שוב או צרו קשר</div>
+        </form>
+      </div>
+      <div class="form-success" id="formSuccess">
+        <div class="big-check">✓</div>
+        <h3>נרשמת בהצלחה!</h3>
+        <p>פרטי ההתחברות יישלחו אליך במייל</p>
+      </div>
+      <div class="urgency urgency-mobile">⏳ מספר המקומות מוגבל</div>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== BENEFITS ===================== -->
+<section class="benefits" id="benefits">
+  <div class="container">
+    <h2 class="section-title">מה תקבלו במפגש<div class="title-line"></div></h2>
+    <p class="section-sub">שעה אחת של ערך אמיתי – שתעזור לכם להחליט אם הקריירה הטיפולית הבאה שלכם מתחילה כאן.</p>
+    <div class="benefit-grid">
+      <div class="benefit-card">
+        <div class="benefit-icon">🥦</div>
+        <h3>איך מזון מרפא מחלות כרוניות</h3>
+        <p>תבינו את הבסיס המדעי שמאחורי כוחה של התזונה להפוך מחלות כרוניות – סוכרת, יתר לחץ דם, מחלות מעי ועוד.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">🎓</div>
+        <h3>הצצה לתוכנית ההכשרה</h3>
+        <p>סילבוס, מבנה הלימודים, היקף השעות והליווי האישי – כל מה שצריך לדעת לפני שמצטרפים.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">💼</div>
+        <h3>מסלול הקריירה כמטפל</h3>
+        <p>איך נראית קליניקה של מטפל ברפואה תזונתית, איך בונים מוניטין ואיך מתפרנסים מהמקצוע בכבוד.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">🌟</div>
+        <h3>סיפורי בוגרים מהשטח</h3>
+        <p>בוגרי התוכנית משתפים איך ההכשרה שינתה את חייהם המקצועיים – ואת חיי המטופלים שלהם.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">🎤</div>
+        <h3>מענה לשאלות בשידור חי</h3>
+        <p>ד"ר שחר עונה אישית על כל שאלה – על התכנים, על ההתאמה אליכם ועל הצעדים הבאים.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ABOUT ===================== -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-img">
+        <img src="https://rambam-medicine.org.il/wp-content/uploads/2024/07/%D7%92%D7%99%D7%9C-%D7%A4%D7%95%D7%9C-%D7%A4%D7%A8%D7%99%D7%99%D7%9D-copy-scaled-1.jpg" alt="ד&quot;ר גיל יוסף שחר (M.D)" loading="lazy">
+      </div>
+      <div class="about-text">
+        <h2>ד"ר גיל יוסף שחר (M.D)</h2>
+        <p class="role">מייסד המרכז לרפואת הרמב"ם &middot; רופא, מרצה ומחבר רבי־מכר בתחום הרפואה התזונתית</p>
+        <p>ד"ר שחר הוא רופא בהכשרתו, שהקדיש את הקריירה שלו לחקר הקשר העמוק בין תזונה לבריאות. לאחר שנים של עבודה קלינית הוא הבין שתרופות מטפלות בתסמינים – אבל <strong>תזונה נכונה מטפלת בשורש המחלה</strong>.</p>
+        <p>במרכז לרפואת הרמב"ם, שאותו ייסד, הוא משלב בין <strong>מדע רפואי עדכני</strong> לבין עקרונות הבריאות של הרמב"ם – וליווה אלפי מטופלים בדרך להחלמה ממחלות כרוניות באמצעות שינוי תזונתי מדויק.</p>
+        <p>בתוכנית ההכשרה למטפלים הוא מעביר את הידע, הניסיון הקליני והכלים המעשיים – כדי להצמיח דור חדש של מטפלים ברפואה תזונתית בישראל.</p>
+      </div>
+    </div>
+  </div>
+  <div class="container" style="margin-top:44px">
+    <img src="https://rambam-medicine.org.il/wp-content/uploads/2022/02/%D7%92%D7%99%D7%9C-%D7%A6%D7%A8%D7%95%D7%91-%D7%A2%D7%9C-%D7%A8%D7%A7%D7%A2-%D7%97%D7%93%D7%A9-%D7%A4%D7%A0%D7%95%D7%A8%D7%9E%D7%99-1536x749.jpg" alt="ד&quot;ר גיל יוסף שחר ליד שולחן ירקות" loading="lazy" style="border-radius:20px;box-shadow:0 18px 44px rgba(6,85,114,.22);border:5px solid #fff;width:100%">
+  </div>
+</section>
+
+<!-- ===================== TESTIMONIALS ===================== -->
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <h2 class="section-title">בוגרים מספרים<div class="title-line"></div></h2>
+    <p class="section-sub">מאות בוגרים כבר עברו את ההכשרה – הנה מה שיש להם לומר.</p>
+    <div class="testi-strip">
+      <a href="#register"><img src="https://rambam-medicine.org.il/wp-content/uploads/2023/02/%D7%A2%D7%93%D7%95%D7%AA-%D7%A9%D7%9C-%D7%A0%D7%AA%D7%A0%D7%90%D7%9C-%D7%9C%D7%99%D7%9E%D7%95%D7%93%D7%99-%D7%A8%D7%A4%D7%95%D7%90%D7%94-%D7%AA%D7%96%D7%95%D7%A0%D7%AA%D7%99%D7%AA-copy.jpg" alt="עדות של נתנאל - בוגר לימודי רפואה תזונתית" loading="lazy"></a>
+      <a href="#register"><img src="https://rambam-medicine.org.il/wp-content/uploads/2023/02/%D7%A2%D7%93%D7%95%D7%AA-%D7%A9%D7%9C-%D7%A8%D7%9E%D7%99-%D7%9C%D7%99%D7%9E%D7%95%D7%93%D7%99-%D7%A8%D7%A4%D7%95%D7%90%D7%94-%D7%AA%D7%96%D7%95%D7%A0%D7%AA%D7%99%D7%AA-copy.jpg" alt="עדות של רמי - בוגר לימודי רפואה תזונתית" loading="lazy"></a>
+      <a href="#register"><img src="https://rambam-medicine.org.il/wp-content/uploads/2023/07/%D7%A2%D7%93%D7%95%D7%AA-%D7%A9%D7%9C-%D7%A2%D7%99%D7%A0%D7%AA-%D7%9C%D7%99%D7%9E%D7%95%D7%93%D7%99-%D7%A8%D7%A4%D7%95%D7%90%D7%94-%D7%AA%D7%96%D7%95%D7%A0%D7%AA%D7%99%D7%AA-copy.jpg" alt="עדות של עינת - בוגרת לימודי רפואה תזונתית" loading="lazy"></a>
+      <a href="#register"><img src="https://rambam-medicine.org.il/wp-content/uploads/2023/07/%D7%A2%D7%93%D7%95%D7%AA-%D7%A9%D7%9C-%D7%A7%D7%A8%D7%9F-%D7%9C%D7%99%D7%9E%D7%95%D7%93%D7%99-%D7%A8%D7%A4%D7%95%D7%90%D7%94-%D7%AA%D7%96%D7%95%D7%A0%D7%AA%D7%99%D7%AA-copy.jpg" alt="עדות של קרן - בוגרת לימודי רפואה תזונתית" loading="lazy"></a>
+      <a href="#register"><img src="https://rambam-medicine.org.il/wp-content/uploads/2023/07/%D7%A2%D7%93%D7%95%D7%AA-%D7%A9%D7%9C-%D7%A9%D7%95%D7%A9%D7%A0%D7%94-%D7%9C%D7%99%D7%9E%D7%95%D7%93%D7%99-%D7%A8%D7%A4%D7%95%D7%90%D7%94-%D7%AA%D7%96%D7%95%D7%A0%D7%AA%D7%99%D7%AA-copy.jpg" alt="עדות של שושנה - בוגרת לימודי רפואה תזונתית" loading="lazy"></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FINAL CTA ===================== -->
+<section class="final-cta">
+  <h2>המקום שלכם במפגש החי מחכה</h2>
+  <p>🗓 יום שלישי | 16.6.2026 | 21:00 | שידור חי בזום &middot; ללא עלות</p>
+  <a href="#register" class="cta-btn">אשמח להשתתף במפגש</a>
+  <div class="final-urgency">⏳ מספר המקומות מוגבל</div>
+</section>
+
+<footer>
+  © המרכז לרפואת הרמב"ם &middot; ד"ר גיל יוסף שחר (M.D) &middot; כל הזכויות שמורות
+</footer>
+
+<!-- sticky mobile CTA -->
+<div class="sticky-cta" id="stickyCta">
+  <a href="#register">להרשמה ↑ &middot; שריינו מקום במפגש</a>
+</div>
+
+<script>
+(function(){
+  var form = document.getElementById('leadForm');
+  var btn = document.getElementById('submitBtn');
+  var btnText = btn.querySelector('.btn-text');
+  var errBox = document.getElementById('formError');
+  var formBox = document.getElementById('formBox');
+  var successBox = document.getElementById('formSuccess');
+  var sticky = document.getElementById('stickyCta');
+
+  // Hide sticky bar while the form is in view
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      sticky.style.display = entries[0].isIntersecting ? 'none' : '';
+    }, {threshold: 0.25});
+    io.observe(document.getElementById('register'));
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    errBox.style.display = 'none';
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    btn.disabled = true;
+    btn.classList.add('sending');
+    btnText.textContent = 'שולח...';
+
+    var fd = new FormData();
+    fd.append('action', 'elementor_pro_forms_send_form');
+    fd.append('post_id', '198157');
+    fd.append('form_id', '2e912b7');
+    fd.append('queried_id', '198157');
+    fd.append('referer_title', 'יום פתוח | הכשרת מטפלים ברפואה תזונתית');
+    fd.append('form_fields[first_name]', document.getElementById('first_name').value.trim());
+    fd.append('form_fields[last_name]', document.getElementById('last_name').value.trim());
+    fd.append('form_fields[phone]', document.getElementById('phone').value.trim());
+    fd.append('form_fields[email]', document.getElementById('email').value.trim());
+    fd.append('form_fields[mailing_list_acceptance]', 'on');
+    fd.append('form_fields[field_4b7dabf]', 'כן');
+
+    fetch('https://rambam-medicine.org.il/wp-admin/admin-ajax.php', {
+      method: 'POST',
+      body: fd
+    })
+    .then(function(res){ return res.json(); })
+    .then(function(data){
+      if (data && data.success === true) {
+        formBox.style.display = 'none';
+        successBox.style.display = 'block';
+      } else {
+        throw new Error('server');
+      }
+    })
+    .catch(function(){
+      errBox.style.display = 'block';
+      btn.disabled = false;
+      btn.classList.remove('sending');
+      btnText.textContent = 'אשמח להשתתף במפגש';
+    });
+  });
+})();
+</script>
+</body>
+</html>

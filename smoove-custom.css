@@ -1,0 +1,68 @@
+/* ===================================================================
+   Smoove Custom CSS — משכפל את עיצוב הכרטיס הכהה של עמוד הנחיתה
+   להדבקה ב: Smoove → עורך דף הנחיתה → הגדרות → CSS מותאם אישית
+   (inline-styles של Smoove נדרסים בעזרת !important)
+   =================================================================== */
+
+/* רקע שקוף — שהטופס יישב על הכרטיס הכהה */
+body, .lpWrapper, .zWrapper, .zMain, .main { background: transparent !important; }
+
+/* שדות קלט */
+input[name$="_first_name"],
+input[name$="_last_name"],
+input[name$="_email"],
+input[name$="_mobile"] {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  height: 48px !important;
+  line-height: 24px !important;
+  padding: 12px 16px !important;
+  margin-bottom: 12px !important;
+  border: 1px solid rgba(250,248,243,.22) !important;
+  border-radius: 8px !important;
+  background: rgba(250,248,243,.06) !important;
+  color: #F7F3EC !important;
+  font-family: 'Assistant','Heebo',sans-serif !important;
+  font-size: 18px !important;
+  direction: rtl !important;
+}
+
+/* טקסט ה-placeholder (ראה הערה למטה כדי שהתוויות יופיעו בתוך השדה) */
+input::placeholder { color: rgba(250,248,243,.45) !important; font-size: 18px !important; }
+
+/* פוקוס — מסגרת זהב */
+input[name$="_first_name"]:focus,
+input[name$="_last_name"]:focus,
+input[name$="_email"]:focus,
+input[name$="_mobile"]:focus {
+  outline: none !important;
+  border-color: #D4B877 !important;
+  background: rgba(250,248,243,.10) !important;
+  box-shadow: 0 0 0 3px rgba(194,163,111,.22) !important;
+}
+
+/* תוויות (Smoove מציג אותן מעל השדה) — בהיר על רקע כהה */
+label, .uf-label, .field-label { color: rgba(250,248,243,.85) !important; font-family:'Assistant',sans-serif !important; }
+
+/* כפתור שליחה — גרדיאנט זהב כמו במקור */
+button.submit, input[name="uf_submit"] {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-height: 64px !important;
+  padding: 18px !important;
+  border: none !important;
+  border-radius: 12px !important;
+  background: linear-gradient(135deg,#D4B877 0%,#B8964A 100%) !important;
+  color: #1e1608 !important;
+  font-family: 'Assistant','Heebo',sans-serif !important;
+  font-size: 22px !important;
+  font-weight: 700 !important;
+  cursor: pointer !important;
+}
+button.submit:hover, input[name="uf_submit"]:hover { filter: brightness(1.05); }
+
+/* טקסט הסכמה/checkbox */
+.uf-confirmation, label[for*="gUForm"] { color: rgba(250,248,243,.66) !important; font-size: 12px !important; }
+
+/* הסתרת שדות utm נסתרים (אם מופיעים) */
+input[name*="CONTACT_EXTRAINFO"] { display: none !important; }
