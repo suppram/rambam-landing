@@ -1,0 +1,22 @@
+#!/bin/sh
+# Guardrail: no direct pushes to main — everything lands via a Pull Request (this
+# also blocks force-push and branch deletion of main). Feature-branch pushes are
+# unaffected. Adapted from rambam-clinic's .githooks/pre-push.
+#
+# Why a hook and not GitHub branch protection: server-side protection is the repo
+# owner's (suppram's) call on their repo. This local hook covers the actual threat
+# model on this machine — an agent session pushing to main, which here means an
+# immediate production deploy (Vercel fires on every push to main).
+while read -r _local_ref _local_sha remote_ref _remote_sha; do
+  case "$remote_ref" in
+    refs/heads/main)
+      printf '\033[31m\342\234\213 pre-push blocked:\033[0m direct pushes to "main" are disabled (PR-gated).\n' >&2
+      printf '   Push your feature branch and open a PR instead:\n' >&2
+      printf '     git push -u origin HEAD\n' >&2
+      printf '     gh pr create --base main --fill\n' >&2
+      printf '   Merge the PR on GitHub, then locally:  git switch main && git pull --ff-only\n' >&2
+      printf '   (Emergency override: git push --no-verify)\n' >&2
+      exit 1 ;;
+  esac
+done
+exit 0

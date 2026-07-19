@@ -2,3 +2,15 @@
 .DS_Store
 node_modules/
 .vercel
+
+# Secrets — this static site needs none locally; belt-and-braces (see .githooks/)
+# Patterns are deliberately narrow so a legit asset (e.g. id_card.png) is never
+# silently ignored.
+.env
+.env.*
+!.env.example
+*.pem
+id_rsa*
+id_ed25519*
+id_ecdsa*
+token.txt
