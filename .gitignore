@@ -2,3 +2,12 @@
 .DS_Store
 node_modules/
 .vercel
+
+# Secrets — this static site needs none locally; belt-and-braces (see .githooks/)
+.env
+.env.*
+!.env.example
+*_key
+*.pem
+id_*
+token.txt
