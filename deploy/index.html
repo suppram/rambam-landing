@@ -924,61 +924,7 @@
 
 <script>
 (function(){
-  var form = document.getElementById('regForm');
-  var btn = document.getElementById('submitBtn');
-  var errBox = document.getElementById('formError');
-  var wrap = document.getElementById('formWrap');
-  var success = document.getElementById('formSuccess');
   var sticky = document.getElementById('stickyCta');
-
-  if (form) form.addEventListener('submit', function(e){
-    e.preventDefault();
-    errBox.style.display = 'none';
-
-    if (!form.reportValidity()) {
-      var firstInvalid = form.querySelector(':invalid');
-      if (firstInvalid) firstInvalid.focus();
-      return;
-    }
-
-    btn.disabled = true;
-    btn.classList.add('loading');
-    btn.querySelector('.btn-text').textContent = 'שולח...';
-
-    var fd = new FormData();
-    fd.append('action', 'elementor_pro_forms_send_form');
-    fd.append('post_id', '198157');
-    fd.append('form_id', '2e912b7');
-    fd.append('queried_id', '198157');
-    fd.append('referer_title', 'יום פתוח | הכשרת מטפלים ברפואה תזונתית');
-    fd.append('form_fields[first_name]', document.getElementById('first_name').value.trim());
-    fd.append('form_fields[last_name]', document.getElementById('last_name').value.trim());
-    fd.append('form_fields[phone]', document.getElementById('phone').value.trim());
-    fd.append('form_fields[email]', document.getElementById('email').value.trim());
-    fd.append('form_fields[mailing_list_acceptance]', 'on');
-    fd.append('form_fields[field_4b7dabf]', 'כן');
-
-    fetch('https://rambam-medicine.org.il/wp-admin/admin-ajax.php', {
-      method: 'POST',
-      body: fd
-    })
-    .then(function(res){ return res.json(); })
-    .then(function(data){
-      if (data && data.success === true) {
-        wrap.style.display = 'none';
-        success.style.display = 'block';
-        if (sticky) sticky.classList.add('hidden');
-      } else {
-        throw new Error('server');
-      }
-    })
-    .catch(function(){
-      errBox.style.display = 'block';
-      btn.disabled = false;
-      btn.classList.remove('loading');
-      btn.querySelector('.btn-text').textContent = 'אשמח להשתתף במפגש';
-    });
-  });
 
   // HERO PEEK LEAF — removable block
   // teal dot-leaf on the cream side, half-hidden behind the green form panel;
