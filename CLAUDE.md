@@ -20,8 +20,12 @@ Agent sessions must:
   branching; never force-push shared branches; surface conflicts rather than
   overriding the other side's changes.
 - **Touching `deploy/` is touching production.** The merge of a PR that edits
-  `deploy/` goes live within minutes. Keep `src/landing/` and
-  `deploy/index.html` in sync when the page changes (see README).
+  `deploy/` goes live within minutes. `deploy/index.html` is the **single
+  source** of the live page — do not create copies of it under `src/`
+  (`src/landing/variant-1-brand.html` is a separate design draft, not a copy).
+- **Never merge a PR yourself.** Merging to `main` deploys; the permission
+  allowlist deliberately covers only read-only `gh pr` subcommands, so a merge
+  always requires an explicit human approval.
 
 ## Guardrails
 
@@ -29,8 +33,11 @@ Agent sessions must:
   deploy-hook URL lives only in GitHub Actions secrets
   (`VERCEL_DEPLOY_HOOK_URL`). `.githooks/secret-scan` blocks credential shapes
   and dotenv files at commit time in activated clones.
-- Hooks are **opt-in per clone** and change nothing for collaborators who
-  don't activate them (see `.githooks/README.md`).
+- Hooks are **per-clone**: nothing changes for a clone that never activates
+  them. Claude Code sessions activate them automatically on start, and the
+  setting **persists for that clone** afterwards (also gating plain-terminal
+  git there) — disclosed in `.githooks/README.md`. The `.gitignore` secrets
+  patterns, unlike the hooks, apply to every clone.
 
 ## Environment notes (machine-specific, harmless elsewhere)
 
