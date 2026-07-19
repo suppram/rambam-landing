@@ -63,7 +63,7 @@ rambam-lp-manager/
 ## 4. תבניות (Templates)
 
 כל תבנית = תיקייה עם:
-1. **`template.html`** — מסמך HTML עצמאי מלא (כמו `variant-2-minimal.html`), עם אסימוני placeholder, למשל:
+1. **`template.html`** — מסמך HTML עצמאי מלא (כמו `deploy/index.html`), עם אסימוני placeholder, למשל:
    ```html
    <h1>{{hero_title}}</h1>
    <p class="form-sub">{{form_sub}}</p>
@@ -87,7 +87,7 @@ rambam-lp-manager/
    }
    ```
 
-**תבנית ראשונה:** `variant-2-minimal.html` הקיים → הופך ל-`open-day-v2` עם השדות לעיל.
+**תבנית ראשונה:** `deploy/index.html` הקיים (העמוד החי; זהה בייט-בייט ל-`variant-2-minimal.html` ההיסטורי, שהוסר ב-2026-07 וזמין ב-git history) → הופך ל-`open-day-v2` עם השדות לעיל.
 
 ---
 
@@ -134,7 +134,7 @@ rambam-lp-manager/
 
 1. **שלד תוסף** — CPT, capability, תפריט.
 2. **מנוע תבניות + renderer** — טעינת `template.html`/`schema.json`, מילוי placeholders.
-3. **המרת `variant-2-minimal.html`** לתבנית `open-day-v2` עם placeholders + schema.
+3. **המרת `deploy/index.html`** לתבנית `open-day-v2` עם placeholders + schema.
 4. **מסך ניהול** — רשימה, טופס שדות דינמי, מדיה, תצוגה מקדימה.
 5. **Router** — `/lp/{slug}` מגיש HTML נקי.
 6. **פרסום + שכפול**.
