@@ -1,0 +1,26 @@
+#!/bin/sh
+# Guardrail: keep main as a pure mirror of origin — never commit on it directly.
+# All work happens on a feature branch; main only advances via `git pull --ff-only`
+# and merged PRs — a push to main IS a production deploy (Vercel). Pure sh, no
+# dependencies. See CLAUDE.md and .githooks/README.md. Adapted from
+# rambam-make-watchdog's .githooks (lineage: rambam-clinic).
+branch=$(git symbolic-ref --short -q HEAD || echo '')
+case "$branch" in
+  main)
+    printf '\033[31m\342\234\213 pre-commit blocked:\033[0m you are on "main" — a protected mirror branch.\n' >&2
+    printf '   Move your work onto a feature branch, then re-commit:\n' >&2
+    printf '     git switch -c claude/<slug>\n' >&2
+    printf '   main only advances via:  git pull --ff-only origin main   (and merged PRs)\n' >&2
+    printf '   (Emergency override: git commit --no-verify)\n' >&2
+    exit 1 ;;
+esac
+
+# Delegate the secret scan so a credential is stopped at the gate — before the
+# commit object exists, not caught later in review (by which point it is already
+# in history and must be rotated).
+scan="$(git rev-parse --show-toplevel 2>/dev/null)/.githooks/secret-scan"
+if [ -f "$scan" ]; then
+  sh "$scan" || exit 1
+fi
+
+exit 0
