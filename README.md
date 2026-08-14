@@ -3,7 +3,7 @@
 Landing page(s) for the Rambam / Dr. Gil Yosef Shachar **open-day** event
 (יום פתוח — online, live on Zoom). Static HTML, deployed via Vercel.
 
-> **Event date:** 11.08.2026 (יום שלישי, 21:00) — edit in `deploy/index.html`
+> **Event date:** 08.09.2026 (יום שלישי, 21:00) — edit in `deploy/index.html`
 > (the single source of the live page).
 
 ## Repository layout
