@@ -1,4 +1,17 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "extraKnownMarketplaces": {
+    "rambam-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "techRambam/rambam-plugins"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "core@rambam-plugins": true,
+    "frontend@rambam-plugins": true
+  },
   "hooks": {
     "SessionStart": [
       {
@@ -9,17 +22,6 @@
           }
         ]
       }
-    ]
-  },
-  "permissions": {
-    "allow": [
-      "Bash(gh issue *)",
-      "Bash(gh pr view *)",
-      "Bash(gh pr list *)",
-      "Bash(gh pr diff *)",
-      "Bash(gh pr checks *)",
-      "Bash(git fetch *)",
-      "Bash(git pull *)"
     ]
   }
 }
