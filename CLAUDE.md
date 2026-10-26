@@ -15,7 +15,7 @@ This is a **shared repo** (owner: `suppram`; collaborator: `techRambam`).
   `SessionStart` hook in `.claude/settings.json` activates them per clone;
   verify with `git config core.hooksPath`, which prints `.githooks`.
 - **Expect concurrent edits by the other collaborator.** Surface conflicts
-  rather than overriding the other side's changes.
+  rather than overriding the other side's changes. Never force-push shared branches.
 - **Touching `deploy/` is touching production.** The merge of a PR that edits
   `deploy/` goes live within minutes. `deploy/index.html` is the **single
   source** of the live page. Do not create copies of it under `src/`
